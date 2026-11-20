@@ -1,0 +1,17 @@
+{
+  "projects": {
+    "default": "proyectopreact"
+  },
+  "targets": {
+    "proyectopreact": {
+      "hosting": {
+        "publica": [
+          "proyectopreact"
+        ],
+        "admin": [
+          "proyectopreact-admin"
+        ]
+      }
+    }
+  }
+}

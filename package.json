@@ -1,0 +1,9 @@
+{
+  "name": "proyecto-mayorista-root",
+  "private": true,
+  "workspaces": [
+    "apps/*",
+    "packages/*",
+    "functions"
+  ]
+}
