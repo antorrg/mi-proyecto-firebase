@@ -1,75 +1,83 @@
-# React + TypeScript + Vite
+# App Pública (`apps/publica`)
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+Aplicación web pública (Portfolio / Catálogo de proyectos y servicios de **Antorrg**), desarrollada con **React 19**, **TypeScript**, **Vite** y **React Router**. Forma parte del monorepo `mi-proyecto-firebase` y se despliega en el sitio principal de Firebase Hosting (`proyectopreact.web.app`).
 
-Currently, two official plugins are available:
+---
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## ✨ Características Principales
 
-## React Compiler
+- **Portada Optimizada (`Home`):** Renderiza la presentación principal (`FrontPage`) y el resumen de proyectos destacados (`Marketing` usando `productsPreview`) en una sola consulta de datos.
+- **Catálogo y Detalle de Proyectos (`Products`, `DetailProduct`, `Item`):**
+  - Listado general de proyectos en `/detalles`.
+  - Vista detallada de cada proyecto en `/detalles/:id` con enlace al sitio en vivo o demostración en video, además de su galería de secciones/capturas (`items`).
+  - Vista individual de cada captura/sección en `/detalles/item/:id`.
+- **Demostraciones en Video (`Videos`):** Reproductor integrado de YouTube para los proyectos que cuentan con recorrido en video (`/videos/:id`).
+- **Secciones Informativas (`About` y `Contact`):**
+  - Página `/acerca` con soporte para contenido enriquecido.
+  - Página `/contacto` con formulario y protección honeypot anti-spam.
+- **Modo Claro / Oscuro:** Selector de tema persistente en `localStorage` con detección automática de la preferencia del sistema (`data-bs-theme`).
+- **Manejo Resiliente de Errores:** Protegida a nivel global con `ErrorBoundary` y a nivel de rutas con `RouteErrorBoundary` (testeados con Vitest y React Testing Library).
+- **Paquetes Compartidos del Monorepo:**
+  - Consume tipos unificados desde `@mi-app/types`.
+  - Consume estilos globales, íconos y tema Bootstrap personalizado desde `@mi-app/shared-styles`.
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+---
 
-## Expanding the ESLint configuration
+## 🗺️ Rutas de la Aplicación
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+| Ruta | Vista / Componente | Descripción |
+| :--- | :--- | :--- |
+| `/` | `Home` (`FrontPage` + `Marketing`) | Portada principal y tarjetas de vista previa (`productsPreview`) |
+| `/detalles` | `Products` | Listado completo de proyectos/productos |
+| `/detalles/:id` | `DetailProduct` | Detalle de un proyecto y sus `items` asociados |
+| `/detalles/item/:id` | `Item` | Vista ampliada de un item/captura específica |
+| `/videos/:id` | `Videos` | Videos demostrativos asociados al `productId` |
+| `/acerca` | `About` | Información sobre el autor y servicios |
+| `/contacto` | `Contact` | Formulario de contacto y enlace a WhatsApp |
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+---
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## 📁 Estructura Interna (`src/`)
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+apps/publica/src/
+├── api/                  # Capa de acceso a datos asíncrona (preparada para Firestore)
+│   ├── frontPage.api.ts
+│   ├── product.api.ts
+│   ├── item.api.ts
+│   ├── video.api.ts
+│   └── about.api.ts
+├── features/             # Módulos por dominio funcional
+│   ├── frontPage/        # FrontPage.tsx, Marketing.tsx
+│   ├── product/          # Products.tsx, Product.tsx, DetailProduct.tsx, Item.tsx
+│   ├── videos/           # Videos.tsx
+│   ├── about/            # About.tsx
+│   └── contact/          # Contact.tsx
+├── shared/               # Componentes transversales y manejo de errores
+│   ├── components/       # Layout.tsx, Navbar.tsx, Footer.tsx
+│   └── errors/           # ErrorBoundary, RouteErrorBoundary y sus tests (.test.tsx)
+├── views/                # Vistas contenedoras (Home.tsx)
+├── routes.tsx            # Definición del router con createBrowserRouter
+├── App.tsx               # Punto de montaje con ErrorBoundary + RouterProvider
+└── main.tsx              # Entrada principal e importación de @mi-app/shared-styles
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+---
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+## 🚀 Comandos Útiles
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Ejecutados desde la **raíz del monorepo**:
 
+```bash
+# Levantar servidor de desarrollo (Vite)
+npm run dev:publica
+
+# Ejecutar tests unitarios (Vitest)
+npm run test:publica
+
+# Compilar para producción (genera apps/publica/dist)
+npm run build:publica
+
+# Desplegar únicamente la app pública en Firebase Hosting
+firebase deploy --only hosting:publica
 ```

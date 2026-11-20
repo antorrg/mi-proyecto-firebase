@@ -11,6 +11,12 @@
     "build:publica": "npm --workspace=publica run build",
     "build:admin": "npm --workspace=admin run build",
     "build:functions": "npm --prefix functions run build",
-    "build": "npm run build:publica && npm run build:admin && npm run build:functions"
+    "build": "npm run build:publica && npm run build:admin && npm run build:functions",
+    "test:publica": "npm --workspace=publica run test",
+    "test:admin": "npm --workspace=admin run test",
+    "test": "npm --workspaces --if-present run test"
+  },
+  "dependencies": {
+    "react-router": "^8.5.2"
   }
 }

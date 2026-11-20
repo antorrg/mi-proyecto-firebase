@@ -1,0 +1,9 @@
+{
+  "name": "@mi-app/shared-styles",
+  "version": "1.0.0",
+  "main": "index.css",
+  "exports": {
+    ".": "./index.css",
+    "./*": "./*"
+  }
+}
