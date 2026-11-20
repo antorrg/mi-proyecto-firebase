@@ -1,6 +1,6 @@
-# Proyecto Mayorista - Monorepo con Firebase
+# Mi Proyecto Firebase - Monorepo
 
-Este repositorio contiene una arquitectura **monorepo** basada en **npm workspaces** para el sistema mayorista, integrando dos aplicaciones web frontend (React + Vite + TypeScript), paquetes compartidos y un backend serverless en **Firebase** (Firestore, Cloud Functions, Authentication, Storage y Multi-Site Hosting).
+Este repositorio contiene una arquitectura **monorepo** basada en **npm workspaces**, integrando dos aplicaciones web frontend (React + Vite + TypeScript), paquetes compartidos y un backend serverless en **Firebase** (Firestore, Cloud Functions, Authentication, Storage y Multi-Site Hosting).
 
 ---
 
@@ -9,7 +9,7 @@ Este repositorio contiene una arquitectura **monorepo** basada en **npm workspac
 ```text
 mi-proyecto-firebase/
 ├── apps/
-│   ├── publica/              # Web pública / catálogo mayorista (React + Vite + TS)
+│   ├── publica/              # Aplicación web pública (React + Vite + TS)
 │   └── admin/                # Panel de administración privado (React + Vite + TS)
 ├── packages/
 │   └── shared-types/         # Tipos e interfaces TypeScript compartidos (@mi-app/types)

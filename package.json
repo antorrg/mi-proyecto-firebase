@@ -1,5 +1,5 @@
 {
-  "name": "proyecto-mayorista-root",
+  "name": "mi-proyecto-firebase",
   "private": true,
   "workspaces": [
     "apps/*",
