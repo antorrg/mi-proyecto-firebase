@@ -10,7 +10,10 @@
     "sourceMap": true,
     "strict": true,
     "target": "es2017",
-    "skipLibCheck": true
+    "skipLibCheck": true,
+    "paths": {
+      "@mi-app/types": ["./../packages/shared-types/index.d.ts"]
+    }
   },
   "compileOnSave": true,
   "include": [

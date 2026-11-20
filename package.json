@@ -3,7 +3,14 @@
   "private": true,
   "workspaces": [
     "apps/*",
-    "packages/*",
-    "functions"
-  ]
+    "packages/*"
+  ],
+  "scripts": {
+    "dev:publica": "npm --workspace=publica run dev",
+    "dev:admin": "npm --workspace=admin run dev",
+    "build:publica": "npm --workspace=publica run build",
+    "build:admin": "npm --workspace=admin run build",
+    "build:functions": "npm --prefix functions run build",
+    "build": "npm run build:publica && npm run build:admin && npm run build:functions"
+  }
 }
